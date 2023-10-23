@@ -1,18 +1,27 @@
-"""Program will output a file (using data chosen by the user)
-that swaps the configuration setting with the setting itself"""
+"""This program is meant to work with an .ini file. It will output a .ini file with the 
+configuration setting swapped with the setting itself."""
 
-#Main function of the program(see line1)
+#I dont know how to describe this without it being incredibly wordy. See for yourself
 def stringswap(line):
+   
+    #Create two substrings of a line with an = character functioning as a delimiter
     left_side_string = line[:line.find('=')]
     right_side_string = line[line.find('=') + 1 :]
-    
-    #return the swapped string
+
+    #Return the two substrings in swapped positions and concatenated
     return (right_side_string.strip() + " = " + left_side_string.strip())
 
-#Prompt user for filepath
+#Validate user Input
+while True:
+    try:
+        in_file = open(input("Please enter file name including the file extension: "))
+    except:
+        print("""File does not exist, or is not in the correct directory. 
+Move the file into directory the script was executed and try again""")
+    else:
+        break
 
-#Open input file to be read, open output file to be written into
-in_file = open('sample.ini')
+#Open output file to be written into
 out_file = open('reversed.ini', 'w')
 
 #Write into output file all lines, and swap those with an = character
@@ -21,3 +30,7 @@ for line in in_file:
         out_file.write(stringswap(line) + "\n")
     else:
         out_file.write(line)
+
+#Close up all files
+out_file.close()
+in_file.close()
